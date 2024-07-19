@@ -1,0 +1,208 @@
+// Zadaca 1
+
+1. Povrzete se na mongodb.
+-   https://www.mongodb.com/
+-   Sing In
+-   Database Access
+-   +ADD NEW DATABASE USER
+-   Register name and password of the database
+-   In the field "Bilt-in Rore" we choosing "Read and write to any database"
+-   After that we go in "DEPLOYMENT"-> "Database" and click on CONNECT
+-   We choose "Compass" method and "I have MongoDB Compas installed"
+-   We copy the connection string and we past in our application MongoDB Compass 
+-   And in the link <mongodb+srv://<username>:<password>@cluster0.ogeqvpp.mongodb.net/> field password we write our password of the created Cluster
+-   Then in the application MongoDB Compass we click "Connect" and we are connected on orr MongoDB Atlas Cluster
+
+
+
+2. Kreirajte kolekcija za korisnici 'users'
+-   use HomeworDatabase
+    switched to db HomeworDatabase
+    Atlas atlas-4feaxx-shard-0 [primary] HomeworDatabase
+    db.createCollection("users")
+    { ok: 1 }
+
+
+
+3. Vmetnete tri podatoka vo taa kolekcija so pomos na funkcijata insert
+-   db.users.insertMany([
+{
+  "first_name": "Jeanette",
+  "last_name": "Penddreth",
+  "email": "jpenddreth0@census.gov",
+  "gender": "Female",
+  "ip_address": "26.58.193.2"
+},
+{
+  "first_name": "Giavani",
+  "last_name": "Frediani",
+  "email": "gfrediani1@senate.gov",
+  "gender": "Male",
+  "ip_address": "229.179.4.212"
+},
+{
+  "first_name": "Noell",
+  "last_name": "Bea",
+  "email": "nbea2@imageshack.us",
+  "gender": "Female",
+  "ip_address": "180.66.162.255"
+},
+{
+  "first_name": "Willard",
+  "last_name": "Valek",
+  "email": "wvalek3@vk.com",
+  "gender": "Male",
+  "ip_address": "67.76.188.26"
+}])
+
+-   Output
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('669a0e4a13633f9cd9e055e0'),
+    '1': ObjectId('669a0e4a13633f9cd9e055e1'),
+    '2': ObjectId('669a0e4a13633f9cd9e055e2'),
+    '3': ObjectId('669a0e4a13633f9cd9e055e3')
+  }
+}
+
+
+
+
+4. Izlistajte gi dodadenite podatoci na ekran
+-   db.users.find()
+-   Output
+{
+  _id: ObjectId('669a0e4a13633f9cd9e055e0'),
+  first_name: 'Jeanette',
+  last_name: 'Penddreth',
+  email: 'jpenddreth0@census.gov',
+  gender: 'Female',
+  ip_address: '26.58.193.2'
+}
+{
+  _id: ObjectId('669a0e4a13633f9cd9e055e1'),
+  first_name: 'Giavani',
+  last_name: 'Frediani',
+  email: 'gfrediani1@senate.gov',
+  gender: 'Male',
+  ip_address: '229.179.4.212'
+}
+{
+  _id: ObjectId('669a0e4a13633f9cd9e055e2'),
+  first_name: 'Noell',
+  last_name: 'Bea',
+  email: 'nbea2@imageshack.us',
+  gender: 'Female',
+  ip_address: '180.66.162.255'
+}
+{
+  _id: ObjectId('669a0e4a13633f9cd9e055e3'),
+  first_name: 'Willard',
+  last_name: 'Valek',
+  email: 'wvalek3@vk.com',
+  gender: 'Male',
+  ip_address: '67.76.188.26'
+}
+
+
+
+
+
+5. Azurirajte eden podatok
+-   db.users.updateOne({first_name: "Giavani"}, {$set:{first_name:"VIKTOR"}})
+-   {
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+-   db.users.updateOne({last_name:"Frediani"}, {$set:{last_name: "ILIESKI"}})
+-   {
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+-   db.users.updateOne({email:"gfrediani1@senate.gov"}, {$set:{email:"viktor_ilieski@hotmail.com"}})
+-   {
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+
+-   UPDATED DOCUMENT
+-   db.users.findOne({_id: ObjectId('669a0e4a13633f9cd9e055e1')})
+-   {
+  _id: ObjectId('669a0e4a13633f9cd9e055e1'),
+  first_name: 'VIKTOR',
+  last_name: 'ILIESKI',
+  email: 'viktor_ilieski@hotmail.com',
+  gender: 'Male',
+  ip_address: '229.179.4.212'
+}
+
+
+
+
+
+6. Izbrisete eden podatok
+-   db.users.deleteOne({ip_address: '67.76.188.26'})
+-   {
+  acknowledged: true,
+  deletedCount: 1
+}
+
+-   db.users.find()
+-   {
+  _id: ObjectId('669a0e4a13633f9cd9e055e0'),
+  first_name: 'Jeanette',
+  last_name: 'Penddreth',
+  email: 'jpenddreth0@census.gov',
+  gender: 'Female',
+  ip_address: '26.58.193.2'
+}
+{
+  _id: ObjectId('669a0e4a13633f9cd9e055e1'),
+  first_name: 'VIKTOR',
+  last_name: 'ILIESKI',
+  email: 'viktor_ilieski@hotmail.com',
+  gender: 'Male',
+  ip_address: '229.179.4.212'
+}
+{
+  _id: ObjectId('669a0e4a13633f9cd9e055e2'),
+  first_name: 'Noell',
+  last_name: 'Bea',
+  email: 'nbea2@imageshack.us',
+  gender: 'Female',
+  ip_address: '180.66.162.255'
+}
+
+
+
+
+7. Napravete nova kolekcija (accounts)
+-   db.createCollection("accounts")
+-   { ok: 1 }
+
+
+
+
+
+8. Izbrisete ja istata
+-   db.accounts.drop()
+-   true
+
+
+
+
+
+
+

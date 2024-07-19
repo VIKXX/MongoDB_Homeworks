@@ -1,0 +1,254 @@
+// Zadaca 2
+
+1. Kreirajte kolekcija za biblioteka
+-   use BookStoreDatabase
+-   switched to db BookStoreDatabase
+-   db.createCollection("BookStore", { capped : true, size : 100000, max : 100 })
+-   { ok: 1 }
+
+
+2. Vo istata naednas dodadete poveke knigi
+-  db.BookStore.insertMany([
+{
+    author: "Chinua Achebe",
+    country: "Nigeria",
+    imageLink: "images/things-fall-apart.jpg",
+    language: "English",
+    link: "https://en.wikipedia.org/wiki/Things_Fall_Apart\n",
+    pages: 209,
+    title: "Things Fall Apart",
+    year: 1958
+  },
+{
+    author: "Hans Christian Andersen",
+    country: "Denmark",
+    imageLink: "images/fairy-tales.jpg",
+    language: "Danish",
+    link: "https://en.wikipedia.org/wiki/Fairy_Tales_Told_for_Children._First_Collection.\n",
+    pages: 784,
+    title: "Fairy tales",
+    year: 1836
+  },
+{
+    author: "Dante Alighieri",
+    country: "Italy",
+    imageLink: "images/the-divine-comedy.jpg",
+    language: "Italian",
+    link: "https://en.wikipedia.org/wiki/Divine_Comedy\n",
+    pages: 928,
+    title: "The Divine Comedy",
+    year: 1315
+  },
+  {
+    author: "Unknown",
+    country: "Sumer and Akkadian Empire",
+    imageLink: "images/the-epic-of-gilgamesh.jpg",
+    language: "Akkadian",
+    link: "https://en.wikipedia.org/wiki/Epic_of_Gilgamesh\n",
+    pages: 160,
+    title: "The Epic Of Gilgamesh",
+    year: 1700
+  },
+  {
+    author: "Unknown",
+    country: "Achaemenid Empire",
+    imageLink: "images/the-book-of-job.jpg",
+    language: "Hebrew",
+    link: "https://en.wikipedia.org/wiki/Book_of_Job\n",
+    pages: 176,
+    title: "The Book Of Job",
+    year: 600
+  }
+]) 
+
+-   Output
+{
+  acknowledged: true,
+  insertedIds: {
+    '0': ObjectId('669a2ccd13633f9cd9e055e6'),
+    '1': ObjectId('669a2ccd13633f9cd9e055e7'),
+    '2': ObjectId('669a2ccd13633f9cd9e055e8'),
+    '3': ObjectId('669a2ccd13633f9cd9e055e9'),
+    '4': ObjectId('669a2ccd13633f9cd9e055ea')
+  }
+}
+
+
+
+3. Ispecatete gi na ekran
+-   db.BookStore.find()
+-   {
+  _id: ObjectId('669a2ccd13633f9cd9e055e6'),
+  author: 'Chinua Achebe',
+  country: 'Nigeria',
+  imageLink: 'images/things-fall-apart.jpg',
+  language: 'English',
+  link: 'https://en.wikipedia.org/wiki/Things_Fall_Apart\n',
+  pages: 209,
+  title: 'Things Fall Apart',
+  year: 1958
+}
+{
+  _id: ObjectId('669a2ccd13633f9cd9e055e7'),
+  author: 'Hans Christian Andersen',
+  country: 'Denmark',
+  imageLink: 'images/fairy-tales.jpg',
+  language: 'Danish',
+  link: 'https://en.wikipedia.org/wiki/Fairy_Tales_Told_for_Children._First_Collection.\n',
+  pages: 784,
+  title: 'Fairy tales',
+  year: 1836
+}
+{
+  _id: ObjectId('669a2ccd13633f9cd9e055e8'),
+  author: 'Dante Alighieri',
+  country: 'Italy',
+  imageLink: 'images/the-divine-comedy.jpg',
+  language: 'Italian',
+  link: 'https://en.wikipedia.org/wiki/Divine_Comedy\n',
+  pages: 928,
+  title: 'The Divine Comedy',
+  year: 1315
+}
+{
+  _id: ObjectId('669a2ccd13633f9cd9e055e9'),
+  author: 'Unknown',
+  country: 'Sumer and Akkadian Empire',
+  imageLink: 'images/the-epic-of-gilgamesh.jpg',
+  language: 'Akkadian',
+  link: 'https://en.wikipedia.org/wiki/Epic_of_Gilgamesh\n',
+  pages: 160,
+  title: 'The Epic Of Gilgamesh',
+  year: 1700
+}
+{
+  _id: ObjectId('669a2ccd13633f9cd9e055ea'),
+  author: 'Unknown',
+  country: 'Achaemenid Empire',
+  imageLink: 'images/the-book-of-job.jpg',
+  language: 'Hebrew',
+  link: 'https://en.wikipedia.org/wiki/Book_of_Job\n',
+  pages: 176,
+  title: 'The Book Of Job',
+  year: 600
+}
+
+
+4. Najdete gi knigite kade godinata na nivno izleguvanje pred 1950 godinata
+-   db.BookStore.find({year: {$gt:1950}})
+-   Output
+{
+  _id: ObjectId('669a2ccd13633f9cd9e055e6'),
+  author: 'Chinua Achebe',
+  country: 'Nigeria',
+  imageLink: 'images/things-fall-apart.jpg',
+  language: 'English',
+  link: 'https://en.wikipedia.org/wiki/Things_Fall_Apart\n',
+  pages: 209,
+  title: 'Things Fall Apart',
+  year: 1958
+} 
+
+
+
+5. Azurirajte odredena kniga spored nejzinoto ima t.e Title, promenete ja godinata na nejzinoto izleguvanje
+-   db.BookStore.updateOne({title: "Things Fall Apart"}, {$set:{year:2000}})
+-   {
+  acknowledged: true,
+  insertedId: null,
+  matchedCount: 1,
+  modifiedCount: 1,
+  upsertedCount: 0
+}
+-   db.BookStore.findOne({title: "Things Fall Apart"})
+-   {
+  _id: ObjectId('669a2ccd13633f9cd9e055e6'),
+  author: 'Chinua Achebe',
+  country: 'Nigeria',
+  imageLink: 'images/things-fall-apart.jpg',
+  language: 'English',
+  link: 'https://en.wikipedia.org/wiki/Things_Fall_Apart\n',
+  pages: 209,
+  title: 'Things Fall Apart',
+  year: 2000
+}
+
+
+
+6. Izbrisete edna kniga od odredena godina. Primer najdete nekoja od 1984 i izbrisete ja
+-   db.BookStore.deleteOne({year:1985}, {$exist:true})
+-   Output
+{
+  acknowledged: true,
+  deletedCount: 0
+}
+
+-   db.BookStore.deleteOne({year:1836}, {$exist:true})
+-   Output
+{
+  acknowledged: true,
+  deletedCount: 1
+}
+-   db.BookStore.find()
+-   Output
+{
+  _id: ObjectId('669a2ccd13633f9cd9e055e6'),
+  author: 'Chinua Achebe',
+  country: 'Nigeria',
+  imageLink: 'images/things-fall-apart.jpg',
+  language: 'English',
+  link: 'https://en.wikipedia.org/wiki/Things_Fall_Apart\n',
+  pages: 209,
+  title: 'Things Fall Apart',
+  year: 2000
+}
+{
+  _id: ObjectId('669a2ccd13633f9cd9e055e8'),
+  author: 'Dante Alighieri',
+  country: 'Italy',
+  imageLink: 'images/the-divine-comedy.jpg',
+  language: 'Italian',
+  link: 'https://en.wikipedia.org/wiki/Divine_Comedy\n',
+  pages: 928,
+  title: 'The Divine Comedy',
+  year: 1315
+}
+{
+  _id: ObjectId('669a2ccd13633f9cd9e055e9'),
+  author: 'Unknown',
+  country: 'Sumer and Akkadian Empire',
+  imageLink: 'images/the-epic-of-gilgamesh.jpg',
+  language: 'Akkadian',
+  link: 'https://en.wikipedia.org/wiki/Epic_of_Gilgamesh\n',
+  pages: 160,
+  title: 'The Epic Of Gilgamesh',
+  year: 1700
+}
+{
+  _id: ObjectId('669a2ccd13633f9cd9e055ea'),
+  author: 'Unknown',
+  country: 'Achaemenid Empire',
+  imageLink: 'images/the-book-of-job.jpg',
+  language: 'Hebrew',
+  link: 'https://en.wikipedia.org/wiki/Book_of_Job\n',
+  pages: 176,
+  title: 'The Book Of Job',
+  year: 600
+}
+
+7. Prasanje: Koja komanda treba da ja iskoristite za da ja izbrisete ovde kolekcijata?
+-   db.BookStore.drop()
+
+8. Prasanje: Koja komanda ke vi treba da ja izbrisete databazata?
+-   use <name of database> - we use to get permission in the desired database 
+-   db.dropDatabase()
+
+
+
+
+
+
+
+
+
+
