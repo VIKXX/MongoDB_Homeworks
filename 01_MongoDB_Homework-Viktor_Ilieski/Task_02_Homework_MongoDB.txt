@@ -241,7 +241,7 @@
 
 8. Prasanje: Koja komanda ke vi treba da ja izbrisete databazata?
 -   use <name of database> - we use to get permission in the desired database 
--   db.dropDatabase()
+-   db.dropDatabase().
 
 
 
