@@ -240,8 +240,22 @@
 -   db.BookStore.drop()
 
 8. Prasanje: Koja komanda ke vi treba da ja izbrisete databazata?
--   use <name of database> - we use to get permission in the desired database 
--   db.dropDatabase().
+-   We are going in www.mongodb.com our platform
+-   Going in the Database Access
+-   We select our User Name of existing database and we click EDIT button
+-   In the Database User Privileges  we go in SpecificPrivileges and we add one more privilege dbAdminAnyDatabase
+-   We save al changes of the existing UserName Database
+-   Than we open the MongoDB Compass and connect to the our created Database
+-   In terminal MONGOSH we write :
+-   use.<database> and we use some database from our UserName
+-   in the same existing data base where we have already access we write db.dropDatabase()
+-   and the used database will be deleted.
+
+-   EXAMPLE
+-   use HomeworDatabase
+-   switched to db HomeworDatabase
+-   db.dropDatabase()
+-   { ok: 1, dropped: 'HomeworDatabase' }
 
 
 
